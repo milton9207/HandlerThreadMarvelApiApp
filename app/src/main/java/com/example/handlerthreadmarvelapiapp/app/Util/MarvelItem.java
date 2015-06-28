@@ -9,6 +9,7 @@ public class MarvelItem {
 
     private String title;
     private String description;
+    private String imageURL;
     private Bitmap image;
 
     public MarvelItem(String title, String description, Bitmap image)
@@ -17,9 +18,25 @@ public class MarvelItem {
         this.description = description;
         this.image = image;
     }
+    public MarvelItem(String title, String description, String imageURL)
+    {
+        this.title = title;
+        this.description = description;
+        this.imageURL = imageURL;
+    }
+    public MarvelItem(String title, String description)
+    {
+        this.title = title;
+        this.description = description;
+        this.image = null;
+    }
 
     public Bitmap getImage() {
         return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     public String getDescription() {
@@ -30,5 +47,7 @@ public class MarvelItem {
         return title;
     }
 
-
+    public String getImageURL() {
+        return imageURL;
+    }
 }

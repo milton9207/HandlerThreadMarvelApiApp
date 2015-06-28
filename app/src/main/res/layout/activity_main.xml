@@ -9,6 +9,17 @@
              android:id="@+id/toolbar"/>
 
 
+    <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="5dip"
+            android:minHeight="5dip"
+            android:visibility="invisible" >
+    </ProgressBar>
+
+
     <android.support.v7.widget.RecyclerView
 
             android:id="@+id/RecyclerMainList"

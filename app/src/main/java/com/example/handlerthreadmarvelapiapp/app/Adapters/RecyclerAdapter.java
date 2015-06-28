@@ -27,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public RecyclerAdapter(Context context)
     {
         inflater = LayoutInflater.from(context);
-        data = new ArrayList<>();
+        data = new ArrayList<MarvelItem>();
 
     }
 
@@ -59,6 +59,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     {
         data.add(item);
     }
+
+    public void setData(ArrayList<MarvelItem> data){ this.data = data; }
 
      class MyViewHolder extends RecyclerView.ViewHolder
     {
