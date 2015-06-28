@@ -29,20 +29,30 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Setup the toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Progressbar?
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.RecyclerMainList);
-        adapter = new RecyclerAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Setup the RecyclerView
+        setupRecyclerView();
 
+
+        //Initializing the downloadCenterThread
         downloadContext = new DownloadContext(adapter,this);
         downloadCenterThread = new DownloadCenterThread("DCenter",downloadContext);
         downloadCenterThread.start();
 
+    }
+
+    public void setupRecyclerView()
+    {
+        recyclerView = (RecyclerView) findViewById(R.id.RecyclerMainList);
+        adapter = new RecyclerAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 

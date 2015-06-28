@@ -3,7 +3,6 @@ package com.example.handlerthreadmarvelapiapp.app.Util;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,8 +20,8 @@ import java.util.ArrayList;
  *
  * @class DownloadContext
  *
- * @brief Class that defines methods used for download data
- *        and download Images from the API, used by the
+ * @brief Context class that defines methods used for download data
+ *        and download Images from the Marvel API, used by the
  *        concurrency context.
  */
 public class DownloadContext {
@@ -115,71 +114,20 @@ public class DownloadContext {
         }
 
         return data;
-
     }
 
-    /**
-     * Display a downloaded bitmap image if it's non-null; otherwise,
-     * it reports an error via a Toast that's displayed on the UI
-     * Thread.  This method can be called from either the UI Thread or
-     * a background Thread.
-     *
-     * @param image
-     *            The bitmap image
-     */
-
-    //display data?
-    public void displayImage(final Bitmap image)
-    {
-        // If this method is run in the UI Thread then display the
-        // image.
-        if (onUiThread()) {
-            if (image == null)
-                showToast("image is corrupted,"
-                        + " please check the requested URL.");
-            else {
-                // Display the image on the user's screen.
-//                mImageView.get().setImageBitmap(image);
-
-                // Indicate we're done with this image.  This call
-                // runs in the UI Thread, so we don't need to
-                // synchronize it.
-//                mCompletionCommand.run();
-
-                //Add image
-            }
-        }
-        // Otherwise, create a new Runnable command that's posted to
-        // the UI Thread to display the image.
-        else {
-            mActivity.get().runOnUiThread(new Runnable() {
-                    public void run() {
-                        // Display the downloaded image to the user.
-                        displayImage(image);
-                    }});
-
-
-        }
-    }
 
     public void displayData(final ArrayList<MarvelItem> data)
     {
         // If this method is run in the UI Thread then display the
-        // image.
+        // data.
         if (onUiThread()) {
             if (data == null)
                 showToast("data is corrupted,"
                         + " please check the requested URL.");
             else {
-                // Display the image on the user's screen.
-//                mImageView.get().setImageBitmap(image);
 
-                // Indicate we're done with this image.  This call
-                // runs in the UI Thread, so we don't need to
-                // synchronize it.
-//                mCompletionCommand.run();
-
-                //Add data
+                // Display the data on the user's screen via Recycler adapater.
 
                 Log.i(TAG,"dentro de display data");
                 adapter.get().setData(data);
@@ -199,8 +147,38 @@ public class DownloadContext {
         }
     }
 
+    public void displayItem(final MarvelItem item)
+    {
+        // If this method is run in the UI Thread then display the
+        // image.
+        if (onUiThread()) {
+            if (item == null)
+                showToast("data is corrupted,"
+                        + " please check the requested URL.");
+            else {
+
+                // Display the data on the user's screen
+                // via Recycler adapater.
+
+
+                Log.i(TAG,"dentro de display data");
+                adapter.get().setItem(item);
+                adapter.get().notifyDataSetChanged();
+            }
+        }
+        // Otherwise, create a new Runnable command that's posted to
+        // the UI Thread to display the image.
+        else {
+            mActivity.get().runOnUiThread(new Runnable() {
+                public void run() {
+                    // Display the downloaded image to the user.
+                    displayItem(item);
+                }});
+        }
+    }
+
         /**
-         * Show a toast to the user.
+         * Factory method to show a toast to the user.
          */
     public void showToast(String toastString) {
         Toast.makeText(mActivity.get(),
